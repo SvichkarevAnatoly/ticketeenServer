@@ -5,10 +5,12 @@ import com.ticketeen.web.json.OnlineCashierReceiptsLink;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.http.client.support.BasicAuthorizationInterceptor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+@Primary
 @Service
 public class OnlineCashierServiceImpl implements OnlineCashierService {
 

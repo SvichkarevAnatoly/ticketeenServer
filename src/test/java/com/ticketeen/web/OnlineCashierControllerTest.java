@@ -1,25 +1,35 @@
 package com.ticketeen.web;
 
-import com.ticketeen.AbstractSpringTest;
+import com.ticketeen.TestConfig;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.web.client.RestTemplate;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 
-@RunWith(SpringRunner.class)
-public class OnlineCashierControllerTest extends AbstractSpringTest {
+@RunWith(SpringJUnit4ClassRunner.class)
+// This will start the server on a random port
+@SpringBootTest(classes = TestConfig.class,
+        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+public class OnlineCashierControllerTest {
+    private final RestTemplate template = new RestTemplate();
+    // This will hold the port number the server was started on
+    @Value("${local.server.port}")
+    int port;
+
     @Test
-    public void getReceipt() throws Exception {
+    public void containsShopName() {
         final String login = "+79523507654";
         final String password = "948346";
 
-        mockMvc.perform(get("/online-cashier/" + login + "/" + password))
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(contentType));
+        String message = template.getForObject("http://localhost:" + port +
+                "/online-cashier/" + login + "/" + password, String.class);
+
+        assertThat(message, is(containsString("\"user\":\"Ашан\"")));
     }
 }

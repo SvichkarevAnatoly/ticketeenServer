@@ -20,7 +20,7 @@ import org.springframework.context.annotation.FilterType;
                 @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, value = Application.class)
         }
 )
-public class TestConfig {
+public class MockTestConfig {
 
     @Bean
         // Define our own test message service

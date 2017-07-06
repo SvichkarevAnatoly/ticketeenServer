@@ -1,6 +1,6 @@
 package com.ticketeen.web;
 
-import com.ticketeen.TestConfig;
+import com.ticketeen.MockTestConfig;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,7 +14,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 // This will start the server on a random port
-@SpringBootTest(classes = TestConfig.class,
+@SpringBootTest(classes = MockTestConfig.class,
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class OnlineCashierControllerTest {
     private final RestTemplate template = new RestTemplate();

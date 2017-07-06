@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.client.RestTemplate;
 
@@ -16,6 +17,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 // This will start the server on a random port
 @SpringBootTest(classes = MockTestConfig.class,
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@TestPropertySource(locations = "classpath:test.properties")
 public class OnlineCashierControllerTest {
     private final RestTemplate template = new RestTemplate();
     // This will hold the port number the server was started on
